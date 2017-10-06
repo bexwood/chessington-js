@@ -11,3 +11,4 @@ export default class Rook extends Piece {
         return this.getLateralMovements(board, currentPosition);
     }
 }
+

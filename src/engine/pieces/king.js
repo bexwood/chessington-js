@@ -22,3 +22,4 @@ export default class King extends Piece {
         return availableMoves;
     }
 }
+

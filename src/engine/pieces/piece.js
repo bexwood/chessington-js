@@ -1,6 +1,5 @@
 import GameSettings from "../gameSettings";
 import Square from "../square";
-import {list} from "mocha/lib/reporters";
 
 export default class Piece {
     constructor(player) {
