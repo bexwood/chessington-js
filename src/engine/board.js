@@ -3,8 +3,8 @@ import GameSettings from './gameSettings';
 import Square from './square';
 
 export default class Board {
-    constructor() {
-        this.currentPlayer = Player.WHITE;
+    constructor(currentPlayer) {
+        this.currentPlayer = currentPlayer ? currentPlayer : Player.WHITE;
         this.board = this.createBoard();
     }
 
@@ -44,7 +44,7 @@ export default class Board {
     }
 
     movePiece(fromSquare, toSquare) {
-        const movingPiece = this.getPiece(fromSquare);        
+        const movingPiece = this.getPiece(fromSquare);
         if (!!movingPiece && movingPiece.player === this.currentPlayer) {
             this.setPiece(toSquare, movingPiece);
             this.setPiece(fromSquare, undefined);
