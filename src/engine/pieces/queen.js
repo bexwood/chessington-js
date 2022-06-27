@@ -26,11 +26,11 @@ export default class Queen extends Piece {
             };
             let difference = col - currentPosition.col;
             let rowMinusDifference = currentPosition.row - difference;
-            if ((rowMinusDifference >= 0) && (rowMinusDifference <= GameSettings.BOARD_SIZE)) {
+            if ((rowMinusDifference >= 0) && (rowMinusDifference < GameSettings.BOARD_SIZE)) {
                 availableMoves.push(new Square(rowMinusDifference, col));
             };
             let rowPlusDifference = currentPosition.row + difference;
-            if ((rowPlusDifference >= 0) && (rowPlusDifference <= GameSettings.BOARD_SIZE)) {
+            if ((rowPlusDifference >= 0) && (rowPlusDifference < GameSettings.BOARD_SIZE)) {
                 availableMoves.push(new Square(rowPlusDifference, col));
             };
         };
