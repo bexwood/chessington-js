@@ -41,7 +41,7 @@ export default class Piece {
             } else if (square.col !== i && board.getPiece(new Square(square.row, i)).player !== this.player && board.getPiece(new Square(square.row, i)).constructor.name !== 'King'){
                 availableMoves.push(new Square(square.row, i));
                 break;
-            } else if (square.col !== i && board.getPiece(new Square(square.row, i)).player){
+            } else if (square.col !== i && board.getPiece(new Square(square.row, i))){
                 break;
             } else {
                 continue;
@@ -60,10 +60,15 @@ export default class Piece {
             let rowMinusDifference = square.row - difference;
             if ((rowMinusDifference >= 0) && (rowMinusDifference < GameSettings.BOARD_SIZE) && (!board.getPiece(new Square(rowMinusDifference, col)))) {
                 backwardDiagonalMoves.push(new Square(rowMinusDifference, col));
-            } else if ((rowMinusDifference >= 0) && (rowMinusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowMinusDifference, col)) && (col < square.col)) {
+            } else if ((rowMinusDifference >= 0) && (rowMinusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowMinusDifference, col)).player !== this.player && (col < square.col) && board.getPiece(new Square(rowMinusDifference, col)).constructor.name !== 'King') {
+                backwardDiagonalMoves = [board.getPiece(new Square(rowMinusDifference, col))]
+            } else if ((rowMinusDifference >= 0) && (rowMinusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowMinusDifference, col)).player === this.player && (col < square.col)) {
                 backwardDiagonalMoves = []
                 col = square.col
-            } else if ((rowMinusDifference >= 0) && (rowMinusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowMinusDifference, col)) && (col > square.col)) {
+            } else if ((rowMinusDifference >= 0) && (rowMinusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowMinusDifference, col)).player !== this.player && (col > square.col) && board.getPiece(new Square(rowMinusDifference, col)).constructor.name !== 'King') {
+                backwardDiagonalMoves.push(new Square(rowMinusDifference, col));
+                break;
+            } else if ((rowMinusDifference >= 0) && (rowMinusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowMinusDifference, col)).player === this.player && (col > square.col)) {
                 break;
             }
         }
@@ -77,10 +82,15 @@ export default class Piece {
             let rowPlusDifference = square.row + difference;
             if ((rowPlusDifference >= 0) && (rowPlusDifference < GameSettings.BOARD_SIZE) && (!board.getPiece(new Square(rowPlusDifference, col)))) {
                 forwardDiagonalMoves.push(new Square(rowPlusDifference, col));
-            } else if ((rowPlusDifference >= 0) && (rowPlusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowPlusDifference, col)) && (col < square.col)) {
+            } else if ((rowPlusDifference >= 0) && (rowPlusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowPlusDifference, col)).player !== this.player  && (col < square.col) && board.getPiece(new Square(rowPlusDifference, col)).constructor.name !== 'King') {
+                forwardDiagonalMoves = [board.getPiece(new Square(rowPlusDifference, col))]
+            } else if ((rowPlusDifference >= 0) && (rowPlusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowPlusDifference, col)).player === this.player  && (col < square.col)) {
                 forwardDiagonalMoves = []
                 col = square.col
-            } else if ((rowPlusDifference >= 0) && (rowPlusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowPlusDifference, col)) && (col > square.col)) {
+            } else if ((rowPlusDifference >= 0) && (rowPlusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowPlusDifference, col)).player !== this.player && (col > square.col) && board.getPiece(new Square(rowPlusDifference, col)).constructor.name !== 'King') {
+                forwardDiagonalMoves.push(new Square(rowPlusDifference, col));
+                break;
+            } else if ((rowPlusDifference >= 0) && (rowPlusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowPlusDifference, col)).player === this.player && (col > square.col)) {
                 break;
             }
         }
