@@ -24,18 +24,18 @@ export default class Piece {
     getLateralMovements(board, square) {
         let availableMoves = [];
         for (let i=0; i<GameSettings.BOARD_SIZE; i++){
-            if (square.row !== i && !this.isSquareOccupied(board, i, square.col)){
+            if (square.row !== i && !board.getPiece(new Square(i, square.col))){
                 availableMoves.push(new Square(i, square.col));
-            } else if (square.row !== i && this.isSquareOccupied(board, i, square.col)){
+            } else if (square.row !== i && board.getPiece(new Square(i, square.col))){
                 break;
             } else {
                 continue;
             }
         }
         for (let i=0; i<GameSettings.BOARD_SIZE; i++){
-            if (square.col !== i && !this.isSquareOccupied(board, square.row, i)){
+            if (square.col !== i && !board.getPiece(new Square(square.row, i))){
                 availableMoves.push(new Square(square.row, i));
-            } else if (square.col !== i && this.isSquareOccupied(board, square.row, i)){
+            } else if (square.col !== i && board.getPiece(new Square(square.row, i))){
                 break;
             } else {
                 continue;
@@ -80,10 +80,6 @@ export default class Piece {
         }
         let availableMoves = backwardDiagonalMoves.concat(forwardDiagonalMoves);
         return availableMoves
-    }
-
-    isSquareOccupied(board, row, column){
-        return board.getPiece(new Square(row, column))
     }
 
     moveTo(board, newSquare) {

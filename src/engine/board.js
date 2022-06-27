@@ -35,6 +35,14 @@ export default class Board {
         throw new Error('The supplied piece is not on the board');
     }
 
+    checkSquareOnBoard(row, column){
+        if (row>=0 && row<GameSettings.BOARD_SIZE && column>=0 && column<GameSettings.BOARD_SIZE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     movePiece(fromSquare, toSquare) {
         const movingPiece = this.getPiece(fromSquare);        
         if (!!movingPiece && movingPiece.player === this.currentPlayer) {

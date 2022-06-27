@@ -6,31 +6,22 @@ import Player from "../player";
 export default class Pawn extends Piece {
     constructor(player) {
         super(player);
+        if (this.player === Player.WHITE) {
+            this.direction = 1
+        } else {
+            this.direction = -1
+        }
+
     }
 
     getAvailableMoves(board) {
         let currentPosition = board.findPiece(this);
         let allMoves = [];
-        if (this.player === Player.WHITE) {
-            if (currentPosition.row < (GameSettings.BOARD_SIZE - 1)) {
-                if (!board.getPiece(new Square(currentPosition.row + 1, currentPosition.col))) {
-                    allMoves.push(new Square(currentPosition.row + 1, currentPosition.col));
-                    if (this.firstMove) {
-                        allMoves.push(new Square(currentPosition.row + 2, currentPosition.col));
-                    }
-                }
-            }
-        } else {
-            if (currentPosition.row > (0)) {
-                if (!board.getPiece(new Square(currentPosition.row - 1, currentPosition.col))) {
-                    allMoves.push(new Square(currentPosition.row - 1, currentPosition.col));
-                    if (this.firstMove) {
-                        allMoves.push(new Square(currentPosition.row - 2, currentPosition.col));
-                    }
-                }
-            }
+        allMoves.push(new Square(currentPosition.row + this.direction, currentPosition.col));
+        if (this.firstMove && board.checkSquareOnBoard(currentPosition.row + this.direction, currentPosition.col) && !board.getPiece(new Square(currentPosition.row + this.direction, currentPosition.col))) {
+            allMoves.push(new Square(currentPosition.row + (2*this.direction), currentPosition.col));
         }
-
+        allMoves = this.checkAllMovesOnBoard(allMoves, board)
         allMoves = this.checkAllMovesAvailable(allMoves, board);
         return allMoves;
     }
