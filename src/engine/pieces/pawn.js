@@ -21,8 +21,16 @@ export default class Pawn extends Piece {
         if (this.firstMove && board.checkSquareOnBoard(currentPosition.row + this.direction, currentPosition.col) && !board.getPiece(new Square(currentPosition.row + this.direction, currentPosition.col))) {
             availableMoves.push(new Square(currentPosition.row + (2*this.direction), currentPosition.col));
         }
+        //let diagonalOpposition = this.checkForOpposites(currentPosition, board);
         availableMoves = this.checkAllMovesOnBoard(availableMoves, board)
         availableMoves = this.checkAllMovesAvailable(availableMoves, board);
         return availableMoves;
     }
+
+    // checkForOpposites(currentPosition, board){
+    //     let availableMoves = []
+    //     if (board.getPiece(new Square(currentPosition.row+1, currentPosition.col+1)) && board.getPiece(new Square(currentPosition.row+1, currentPosition.col+1)).player !== this.player){
+    //         availableMoves.push(new Square(currentPosition.row+1, currentPosition.col+1))
+    //     }
+    // }
 }
