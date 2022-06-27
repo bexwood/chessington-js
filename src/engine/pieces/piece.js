@@ -12,9 +12,13 @@ export default class Piece {
         throw new Error('This method must be implemented, and return a list of available moves');
     }
 
-    checkMovesOnBoard(listOfMoves) {
+    checkAllMovesOnBoard(listOfMoves) {
         return listOfMoves.filter(move =>
             (move.row>=0 && move.row<GameSettings.BOARD_SIZE && move.col>=0 && move.col<GameSettings.BOARD_SIZE));
+    }
+
+    checkAllMovesAvailable(listOfMoves, board) {
+        return listOfMoves.filter(move => !board.getPiece(move));
     }
 
     getLateralMovements(board, square) {

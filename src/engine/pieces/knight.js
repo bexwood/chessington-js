@@ -17,6 +17,6 @@ export default class Knight extends Piece {
             new Square(currentPosition.row - 2, currentPosition.col + 1),
             new Square(currentPosition.row + 2, currentPosition.col - 1),
             new Square(currentPosition.row - 2, currentPosition.col - 1)];
-        return this.checkMovesOnBoard(availableMoves);
+        return this.checkAllMovesOnBoard(availableMoves);
     }
 }

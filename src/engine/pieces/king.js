@@ -17,6 +17,6 @@ export default class King extends Piece {
             new Square(currentPosition.row - 1, currentPosition.col),
             new Square(currentPosition.row, currentPosition.col + 1),
             new Square(currentPosition.row, currentPosition.col - 1)];
-        return this.checkMovesOnBoard(availableMoves);
+        return this.checkAllMovesOnBoard(availableMoves);
     }
 }

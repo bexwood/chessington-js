@@ -31,11 +31,7 @@ export default class Pawn extends Piece {
             }
         }
 
-        for (var move in allMoves) {
-            if (board.getPiece(allMoves[move])) {
-                allMoves.splice(move, 1);
-            }
-        }
+        allMoves = this.checkAllMovesAvailable(allMoves, board);
         return allMoves;
     }
 }
