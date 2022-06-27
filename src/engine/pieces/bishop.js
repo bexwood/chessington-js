@@ -43,7 +43,6 @@ export default class Bishop extends Piece {
                 break;
             }
         }
-        //availableMoves = this.removeInvalidMoves(board, availableMoves)
         let availableMoves = backwardDiagonalMoves.concat(forwardDiagonalMoves);
         return availableMoves;
     };
