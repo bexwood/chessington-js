@@ -21,6 +21,7 @@
     "webpack": "^3.6.0"
   },
   "dependencies": {
+    "assertion-error": "^2.0.0",
     "express": "^4.16.1"
   }
 }
