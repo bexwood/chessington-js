@@ -16,13 +16,13 @@ export default class Pawn extends Piece {
 
     getAvailableMoves(board) {
         let currentPosition = board.findPiece(this);
-        let allMoves = [];
-        allMoves.push(new Square(currentPosition.row + this.direction, currentPosition.col));
+        let availableMoves = [];
+        availableMoves.push(new Square(currentPosition.row + this.direction, currentPosition.col));
         if (this.firstMove && board.checkSquareOnBoard(currentPosition.row + this.direction, currentPosition.col) && !board.getPiece(new Square(currentPosition.row + this.direction, currentPosition.col))) {
-            allMoves.push(new Square(currentPosition.row + (2*this.direction), currentPosition.col));
+            availableMoves.push(new Square(currentPosition.row + (2*this.direction), currentPosition.col));
         }
-        allMoves = this.checkAllMovesOnBoard(allMoves, board)
-        allMoves = this.checkAllMovesAvailable(allMoves, board);
-        return allMoves;
+        availableMoves = this.checkAllMovesOnBoard(availableMoves, board)
+        availableMoves = this.checkAllMovesAvailable(availableMoves, board);
+        return availableMoves;
     }
 }

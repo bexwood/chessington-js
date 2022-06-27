@@ -26,7 +26,10 @@ export default class Piece {
         for (let i=0; i<GameSettings.BOARD_SIZE; i++){
             if (square.row !== i && !board.getPiece(new Square(i, square.col))){
                 availableMoves.push(new Square(i, square.col));
-            } else if (square.row !== i && board.getPiece(new Square(i, square.col))){
+            } else if (square.row !== i && board.getPiece(new Square(i, square.col)).player !== this.player){
+                availableMoves.push(new Square(i, square.col))
+                break;
+            } else if (square.row !== i && board.getPiece(new Square(i, square.col)).player === this.player){
                 break;
             } else {
                 continue;
@@ -35,7 +38,10 @@ export default class Piece {
         for (let i=0; i<GameSettings.BOARD_SIZE; i++){
             if (square.col !== i && !board.getPiece(new Square(square.row, i))){
                 availableMoves.push(new Square(square.row, i));
-            } else if (square.col !== i && board.getPiece(new Square(square.row, i))){
+            } else if (square.col !== i && board.getPiece(new Square(square.row, i)).player !== this.player && board.getPiece(new Square(square.row, i)).constructor.name !== 'King'){
+                availableMoves.push(new Square(square.row, i));
+                break;
+            } else if (square.col !== i && board.getPiece(new Square(square.row, i)).player){
                 break;
             } else {
                 continue;
