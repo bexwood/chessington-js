@@ -17,6 +17,8 @@ export default class King extends Piece {
             new Square(currentPosition.row - 1, currentPosition.col),
             new Square(currentPosition.row, currentPosition.col + 1),
             new Square(currentPosition.row, currentPosition.col - 1)];
-        return this.checkAllMovesOnBoard(availableMoves);
+        availableMoves = this.checkAllMovesOnBoard(availableMoves)
+        availableMoves = this.takeOpposingPlayers(availableMoves, board)
+        return availableMoves;
     }
 }

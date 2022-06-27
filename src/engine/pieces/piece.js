@@ -22,6 +22,18 @@ export default class Piece {
         return listOfMoves;
     }
 
+    takeOpposingPlayers(listOfMoves, board) {
+        let availableMoves = []
+        for (let move in listOfMoves) {
+            if (!board.getPiece(listOfMoves[move])){
+                availableMoves.push(listOfMoves[move])
+            } else if (board.getPiece(listOfMoves[move]) && board.getPiece(listOfMoves[move]).player !== this.player && board.getPiece(listOfMoves[move]).constructor.name !== 'King'){
+                availableMoves.push(listOfMoves[move])
+            }
+        }
+        return availableMoves;
+    }
+
     getLateralMovements(board, square) {
         let availableMoves = [];
         for (let i=0; i<GameSettings.BOARD_SIZE; i++){
