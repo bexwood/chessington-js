@@ -15,7 +15,7 @@ export default class Pawn extends Piece {
             if (currentPosition.row < (GameSettings.BOARD_SIZE - 1)) {
                 if (!board.getPiece(new Square(currentPosition.row + 1, currentPosition.col))) {
                     allMoves.push(new Square(currentPosition.row + 1, currentPosition.col));
-                    if (currentPosition.row === 1) {
+                    if (this.firstMove) {
                         allMoves.push(new Square(currentPosition.row + 2, currentPosition.col));
                     }
                 }
@@ -24,7 +24,7 @@ export default class Pawn extends Piece {
             if (currentPosition.row > (0)) {
                 if (!board.getPiece(new Square(currentPosition.row - 1, currentPosition.col))) {
                     allMoves.push(new Square(currentPosition.row - 1, currentPosition.col));
-                    if (currentPosition.row === (GameSettings.BOARD_SIZE - 2)) {
+                    if (this.firstMove) {
                         allMoves.push(new Square(currentPosition.row - 2, currentPosition.col));
                     }
                 }
