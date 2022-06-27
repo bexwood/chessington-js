@@ -1,5 +1,6 @@
 import GameSettings from "../gameSettings";
 import Square from "../square";
+import {list} from "mocha/lib/reporters";
 
 export default class Piece {
     constructor(player) {
@@ -9,6 +10,11 @@ export default class Piece {
 
     getAvailableMoves(board) {
         throw new Error('This method must be implemented, and return a list of available moves');
+    }
+
+    checkMovesOnBoard(listOfMoves) {
+        return listOfMoves.filter(move =>
+            (move.row>=0 && move.row<GameSettings.BOARD_SIZE && move.col>=0 && move.col<GameSettings.BOARD_SIZE));
     }
 
     getLateralMovements(board, square) {
