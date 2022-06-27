@@ -18,7 +18,8 @@ export default class Piece {
     }
 
     checkAllMovesAvailable(listOfMoves, board) {
-        return listOfMoves.filter(move => !board.getPiece(move));
+        listOfMoves = listOfMoves.filter(move => !board.getPiece(move));
+        return listOfMoves;
     }
 
     getLateralMovements(board, square) {
