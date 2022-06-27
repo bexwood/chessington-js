@@ -34,6 +34,44 @@ export default class Piece {
         return availableMoves;
     }
 
+    getDiagonalMovements(board, square) {
+        let backwardDiagonalMoves = [];
+        for (let col = 0; col < GameSettings.BOARD_SIZE; col++) {
+            if (col === square.col) {
+                continue;
+            }
+            let difference = col - square.col;
+            let rowMinusDifference = square.row - difference;
+            if ((rowMinusDifference >= 0) && (rowMinusDifference < GameSettings.BOARD_SIZE) && (!board.getPiece(new Square(rowMinusDifference, col)))) {
+                backwardDiagonalMoves.push(new Square(rowMinusDifference, col));
+            } else if ((rowMinusDifference >= 0) && (rowMinusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowMinusDifference, col)) && (col < square.col)) {
+                backwardDiagonalMoves = []
+                col = square.col
+            } else if ((rowMinusDifference >= 0) && (rowMinusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowMinusDifference, col)) && (col > square.col)) {
+                break;
+            }
+        }
+
+        let forwardDiagonalMoves = [];
+        for (let col = 0; col < GameSettings.BOARD_SIZE; col++) {
+            if (col === square.col) {
+                continue;
+            }
+            let difference = col - square.col;
+            let rowPlusDifference = square.row + difference;
+            if ((rowPlusDifference >= 0) && (rowPlusDifference < GameSettings.BOARD_SIZE) && (!board.getPiece(new Square(rowPlusDifference, col)))) {
+                forwardDiagonalMoves.push(new Square(rowPlusDifference, col));
+            } else if ((rowPlusDifference >= 0) && (rowPlusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowPlusDifference, col)) && (col < square.col)) {
+                forwardDiagonalMoves = []
+                col = square.col
+            } else if ((rowPlusDifference >= 0) && (rowPlusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowPlusDifference, col)) && (col > square.col)) {
+                break;
+            }
+        }
+        let availableMoves = backwardDiagonalMoves.concat(forwardDiagonalMoves);
+        return availableMoves
+    }
+
     isSquareOccupied(board, row, column){
         return board.getPiece(new Square(row, column))
     }
