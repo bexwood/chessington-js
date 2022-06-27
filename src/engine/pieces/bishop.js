@@ -10,37 +10,41 @@ export default class Bishop extends Piece {
 
     getAvailableMoves(board) {
         let currentPosition = board.findPiece(this);
-        let availableMoves = [];
+        let backwardDiagonalMoves = [];
         for (let col = 0; col < GameSettings.BOARD_SIZE; col++) {
             if (col === currentPosition.col) {
                 continue;
-            };
+            }
             let difference = col - currentPosition.col;
             let rowMinusDifference = currentPosition.row - difference;
-            if ((rowMinusDifference >= 0) && (rowMinusDifference < GameSettings.BOARD_SIZE)) {
-                availableMoves.push(new Square(rowMinusDifference, col));
-            };
-            let rowPlusDifference = currentPosition.row + difference;
-            if ((rowPlusDifference >= 0) && (rowPlusDifference < GameSettings.BOARD_SIZE)) {
-                availableMoves.push(new Square(rowPlusDifference, col));
-            };
-        };
-        availableMoves = this.removeInvalidMoves(board, availableMoves)
-        return availableMoves;
-    };
-
-    removeInvalidMoves(board, listOfMoves){
-        for (let move in listOfMoves) {
-            if (board.getPiece(listOfMoves[move])) {
-                listOfMoves.splice(move, 1)
-                let diagonalDirection = this.getDiagonalDirection(listOfMoves[move])
-                //need to go on to delete all moves after this move which follow the same direction
+            if ((rowMinusDifference >= 0) && (rowMinusDifference < GameSettings.BOARD_SIZE) && (!board.getPiece(new Square(rowMinusDifference, col)))) {
+                backwardDiagonalMoves.push(new Square(rowMinusDifference, col));
+            } else if ((rowMinusDifference >= 0) && (rowMinusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowMinusDifference, col)) && (col < currentPosition.col)) {
+                 backwardDiagonalMoves = []
+                 col = currentPosition.col
+            } else if ((rowMinusDifference >= 0) && (rowMinusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowMinusDifference, col)) && (col > currentPosition.col)) {
+                 break;
             }
         }
-        return listOfMoves
-    }
 
-    getDiagonalDirection(position){
-        //implement function to find the direction from 'this' which another position is
-    }
+        let forwardDiagonalMoves = [];
+        for (let col = 0; col < GameSettings.BOARD_SIZE; col++) {
+            if (col === currentPosition.col) {
+                continue;
+            }
+            let difference = col - currentPosition.col;
+            let rowPlusDifference = currentPosition.row + difference;
+            if ((rowPlusDifference >= 0) && (rowPlusDifference < GameSettings.BOARD_SIZE) && (!board.getPiece(new Square(rowPlusDifference, col)))) {
+                forwardDiagonalMoves.push(new Square(rowPlusDifference, col));
+            } else if ((rowPlusDifference >= 0) && (rowPlusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowPlusDifference, col)) && (col < currentPosition.col)) {
+                forwardDiagonalMoves = []
+                col = currentPosition.col
+            } else if ((rowPlusDifference >= 0) && (rowPlusDifference < GameSettings.BOARD_SIZE) && board.getPiece(new Square(rowPlusDifference, col)) && (col > currentPosition.col)) {
+                break;
+            }
+        }
+        //availableMoves = this.removeInvalidMoves(board, availableMoves)
+        let availableMoves = backwardDiagonalMoves.concat(forwardDiagonalMoves);
+        return availableMoves;
+    };
 };
