@@ -1,6 +1,5 @@
 import Piece from './piece';
 import Square from "../square";
-import GameSettings from "../gameSettings";
 
 export default class King extends Piece {
     constructor(player) {
@@ -18,7 +17,6 @@ export default class King extends Piece {
             new Square(currentPosition.row - 1, currentPosition.col),
             new Square(currentPosition.row, currentPosition.col + 1),
             new Square(currentPosition.row, currentPosition.col - 1)];
-        availableMoves = this.checkMovesOnBoard(availableMoves);
-        return availableMoves;
+        return this.checkMovesOnBoard(availableMoves);
     }
 }
