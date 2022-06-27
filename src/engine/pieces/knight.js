@@ -9,16 +9,16 @@ export default class Knight extends Piece {
 
     getAvailableMoves(board) {
         let currentPosition = board.findPiece(this);
-        let availableMoves = [];
-        availableMoves.push(new Square(currentPosition.row + 1, currentPosition.col + 2));
-        availableMoves.push(new Square(currentPosition.row - 1, currentPosition.col + 2));
-        availableMoves.push(new Square(currentPosition.row + 1, currentPosition.col - 2));
-        availableMoves.push(new Square(currentPosition.row - 1, currentPosition.col - 2));
-        availableMoves.push(new Square(currentPosition.row + 2, currentPosition.col + 1));
-        availableMoves.push(new Square(currentPosition.row - 2, currentPosition.col + 1));
-        availableMoves.push(new Square(currentPosition.row + 2, currentPosition.col - 1));
-        availableMoves.push(new Square(currentPosition.row - 2, currentPosition.col - 1));
-        availableMoves = availableMoves.filter(move => (move.row>=0 && move.row<GameSettings.BOARD_SIZE && move.col>=0 && move.col<GameSettings.BOARD_SIZE))
+        let availableMoves = [
+            new Square(currentPosition.row + 1, currentPosition.col + 2),
+            new Square(currentPosition.row - 1, currentPosition.col + 2),
+            new Square(currentPosition.row + 1, currentPosition.col - 2),
+            new Square(currentPosition.row - 1, currentPosition.col - 2),
+            new Square(currentPosition.row + 2, currentPosition.col + 1),
+            new Square(currentPosition.row - 2, currentPosition.col + 1),
+            new Square(currentPosition.row + 2, currentPosition.col - 1),
+            new Square(currentPosition.row - 2, currentPosition.col - 1)];
+        availableMoves = this.checkMovesOnBoard(availableMoves);
         return availableMoves;
     }
 }
